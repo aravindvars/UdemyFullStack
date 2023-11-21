@@ -53,8 +53,8 @@ function play(key) {
 
 function addAnimation(node) {
   let activeButton = $('.' + node);
-  activeButton.classList.add('pressed');
+  activeButton.addClass('pressed');
   setTimeout(() => {
-    activeButton.classList.remove('pressed');
+    activeButton.removeClass('pressed');
   }, 200);
 }
