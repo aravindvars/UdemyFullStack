@@ -1,8 +1,7 @@
-let numofdrums = document.querySelectorAll('.drum').length;
-console.log(numofdrums);
-for (let i = 0; i < numofdrums; i++) {
-  document.querySelectorAll('.drum')[i].addEventListener('click', drumClick);
-}
+// let numofdrums = $('.drum').length;
+// console.log(numofdrums);
+
+$('.drum').on('click', drumClick);
 
 function drumClick() {
   let buttonInnerText = this.textContent;
@@ -10,7 +9,7 @@ function drumClick() {
   addAnimation(buttonInnerText);
 }
 
-document.addEventListener('keydown', function (e) {
+$(document).on('keydown', function (e) {
   play(e.key);
   addAnimation(e.key);
 });
