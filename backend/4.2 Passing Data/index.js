@@ -19,17 +19,11 @@ function getValues(req,res,next){
 }
 
 app.get("/", (req, res) => {
-  const value = {
-    htmlContent: '<h2>Enter your name below !!!</h2>',
-  }
-  res.render('index.ejs', value)
+  res.render('index.ejs')
 });
 app.use(getValues)
 app.post("/submit", (req, res) => {
-  const value = {
-    htmlContent: `<h2>Your name has ${lenName} characters</h2>`,
-  }
-  res.render('index.ejs', value)
+  res.render('index.ejs', {lenOfName: lenName})
 });
 
 app.listen(port, () => {

@@ -8,9 +8,11 @@
 </head>
 
 <body>
-  <p>
-    <%- htmlContent %>
-  </p>
+  <% if(locals.lenOfName) {  %>
+<h2>Your name has <%= lenOfName %> characters</h2>
+  <%  } else {%>
+    <h2>Write your name below</h2>
+    <% } %>
   <!-- Write your code here -->
   <form action="/submit" method="POST">
     <input type="text" name="fName" placeholder="First name">
