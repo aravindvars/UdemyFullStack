@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 
 const app = express();
 const port = 3000;
-const API_URL = "https://secrets-api.appbrewery.com";
+const API_URL = "http://localhost:3000";
 
 // HINTs: Use the axios documentation as well as the video lesson to help you.
 // https://axios-http.com/docs/post_example
@@ -12,7 +12,7 @@ const API_URL = "https://secrets-api.appbrewery.com";
 // https://secrets-api.appbrewery.com/
 
 //TODO 1: Add your own bearer token from the previous lesson.
-const yourBearerToken = "";
+const yourBearerToken = "9c7494e5-ae0c-43ab-9062-76b080f9a594";
 const config = {
   headers: { Authorization: `Bearer ${yourBearerToken}` },
 };
@@ -34,13 +34,42 @@ app.post("/get-secret", async (req, res) => {
 });
 
 app.post("/post-secret", async (req, res) => {
+  console.log(req.body);
+  
+  const usr_secret = req.body.secret;
+  const usr_emscore = req.body.score;
+  try {
+    const result = await axios.post(API_URL + "/secrets", req.body, config);
+    console.log(result.data);
+    const postedData = JSON.stringify(result.data);
+    res.render('index.ejs', {content:postedData})
+  } catch (error) {
+    // console.log(error.response );
+    res.render("index.ejs", { content: JSON.stringify(error.response.data) });
+    
+  }
   // TODO 2: Use axios to POST the data from req.body to the secrets api servers.
 });
 
 app.post("/put-secret", async (req, res) => {
   const searchId = req.body.id;
+  console.log(searchId);
+  console.log(req.body);
+  try {
+    const result = await axios.put(
+      API_URL + "/secrets/" + searchId,
+      req.body,
+      config
+    );
+    res.render("index.ejs", { content: JSON.stringify(result.data) });
+    console.log(result.data);
+  } catch (error) {
+    res.render("index.ejs", { content: JSON.stringify(error.response.data) });
+    console.log(error.response.data);
+  }
+  });
   // TODO 3: Use axios to PUT the data from req.body to the secrets api servers.
-});
+
 
 app.post("/patch-secret", async (req, res) => {
   const searchId = req.body.id;
